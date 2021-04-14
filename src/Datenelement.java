@@ -1,2 +1,2 @@
-public class Datenelement {
+public abstract class Datenelement {
 }
