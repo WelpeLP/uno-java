@@ -1,2 +1,3 @@
-public class Listenelement {
+public abstract class Listenelement {
+    public abstract Listenelement getNaechster();
 }
