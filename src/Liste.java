@@ -1,7 +1,17 @@
-public class Liste {
-    private Knoten erster;
+import java.util.Date;
 
-    public Liste(Knoten l){
+public class Liste {
+    private Listenelement erster;
+
+    public Liste(Listenelement l){
         erster = l;
+    }
+
+    public void hintenAnfuegen(Datenelement d){
+        erster = erster.hintenAnfuegen(d);
+    }
+
+    public int getAnzahl(){
+        return erster.getAnzahl();
     }
 }

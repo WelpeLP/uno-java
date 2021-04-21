@@ -11,7 +11,7 @@ public class Spieler extends Datenelement{
     }
 
     @Override
-    public String farbe() {
+    public Karte.Kartenfarbe farbe() {
         System.out.println("Keine Karte!");
         return null;
     }

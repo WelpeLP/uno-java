@@ -1,12 +1,23 @@
 public class Knoten extends Listenelement{
-    private Knoten naechster;
+    private Listenelement naechster;
 
-    public Knoten(Knoten l){
+    public Knoten(Listenelement l){
         naechster = l;
     }
 
     @Override
-    public Knoten getNaechster(){
+    public Listenelement getNaechster(){
         return naechster;
+    }
+
+    @Override
+    public Listenelement hintenAnfuegen(Datenelement l) {
+        naechster = naechster.hintenAnfuegen(l);
+        return this;
+    }
+
+    @Override
+    public int getAnzahl() {
+        return 1 + naechster.getAnzahl();
     }
 }
