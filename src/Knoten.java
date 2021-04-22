@@ -1,5 +1,6 @@
 public class Knoten extends Listenelement{
     private Listenelement naechster;
+    private Datenelement inhalt;
 
     public Knoten(Listenelement l){
         naechster = l;
@@ -19,5 +20,10 @@ public class Knoten extends Listenelement{
     @Override
     public int getAnzahl() {
         return 1 + naechster.getAnzahl();
+    }
+
+    @Override
+    public Datenelement getInhalt() {
+        return inhalt;
     }
 }

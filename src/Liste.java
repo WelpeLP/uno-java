@@ -14,4 +14,8 @@ public class Liste {
     public int getAnzahl(){
         return erster.getAnzahl();
     }
+
+    public Listenelement getErster(){
+        return erster;
+    }
 }

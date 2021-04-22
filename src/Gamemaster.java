@@ -1,9 +1,10 @@
 public class Gamemaster {
     private Ablagestapel ablagestapel;
-    private Liste kartenliste;
+    private Liste kartenliste, spielerliste;
     private boolean uhrzeigersinn;
 
-    public Gamemaster(){
+    public Gamemaster(Liste s){
+        spielerliste = s;
         kartenliste = new Liste(new Abschluss());
         uhrzeigersinn = true;
 
@@ -65,11 +66,13 @@ public class Gamemaster {
         kartenliste.hintenAnfuegen(k18);
     }
 
-    //TODO: if-Abfrage, ob Karte gelegt werden kann.
-
     public boolean istStapelbar(Karte k){
-        //TODO: Karten überprüfen, ob gelegt werden kann.
-        //if(k == ){}
-        return false;
+        if(k.farbe() == ablagestapel.getKarte().farbe()){
+            return true;
+        }else if(k.kartenwert() == ablagestapel.getKarte().kartenwert()){
+            return true;
+        }else{
+            return k.farbe() == Karte.Kartenfarbe.SCHWARZ;
+        }
     }
 }

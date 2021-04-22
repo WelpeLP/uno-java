@@ -27,4 +27,9 @@ public class Karte extends Datenelement{
     public Kartenfarbe farbe() {
         return farbe;
     }
+
+    @Override
+    public int getAnzahl() {
+        return 0;
+    }
 }
