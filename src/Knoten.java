@@ -26,4 +26,14 @@ public class Knoten extends Listenelement{
     public Datenelement getInhalt() {
         return inhalt;
     }
+
+    @Override
+    public Listenelement inhaltErsetzen(Datenelement vorher, Datenelement nachher) {
+        if(vorher == inhalt){
+            inhalt = nachher;
+        }else{
+            naechster = naechster.inhaltErsetzen(vorher, nachher);
+        }
+        return this;
+    }
 }

@@ -1,5 +1,3 @@
-import java.util.Date;
-
 public class Liste {
     private Listenelement erster;
 
@@ -17,5 +15,9 @@ public class Liste {
 
     public Listenelement getErster(){
         return erster;
+    }
+
+    public void inhaltErsetzen(Datenelement vorher, Datenelement nachher){
+        erster = erster.inhaltErsetzen(vorher, nachher);
     }
 }
