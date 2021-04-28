@@ -1,5 +1,7 @@
 import org.jetbrains.annotations.*;
 
+import java.util.List;
+
 public class Spielkarten {
     private Liste kartenliste;
 
@@ -70,7 +72,12 @@ public class Spielkarten {
     }
 
     public Karte zufallskarte(boolean nurZahlen) {
-        int anzahl = kartenliste.getAnzahl();
+        int anzahl;
+        if(nurZahlen){
+            anzahl = 9 * 4;
+        }else{
+            anzahl = kartenliste.getAnzahl();
+        }
         Listenelement l = kartenliste.getErster();
         boolean karteNichtVerfuegbar = true;
         while (karteNichtVerfuegbar) {
@@ -78,9 +85,11 @@ public class Spielkarten {
             for (int i = 0; i <= zufallszahl; i++) {
                 l = l.getNaechster();
             }
+            Karte k1 = (Karte) l.getInhalt();
             if (l.getInhalt().getAnzahl() > 0) {
                 karteNichtVerfuegbar = false;
-                //TODO: int anzahl - 1!
+                Karte lNeu = new Karte(l.getInhalt().kartenwert(), l.getInhalt().farbe(), l.getInhalt().getAnzahl() - 1); //Neue Karte mit Anzahl-1
+                kartenliste.inhaltErsetzen(l.getInhalt(), lNeu);
             }
         }
         return (Karte) l.getInhalt();

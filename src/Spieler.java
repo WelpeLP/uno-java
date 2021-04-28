@@ -1,7 +1,12 @@
 public class Spieler extends Datenelement{
+    private String spielername;
+    public Spieler(String name){
+        spielername = name;
+    }
+
     @Override
     public String spielername() {
-        return null;
+        return spielername;
     }
 
     @Override

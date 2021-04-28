@@ -1,14 +1,16 @@
 public class Gamemaster {
     private Ablagestapel ablagestapel;
     private Liste spielerliste;
+    private Spielkarten spielkarten;
     private boolean uhrzeigersinn;
 
     public Gamemaster(Liste s){
         spielerliste = s;
         uhrzeigersinn = true;
+        spielkarten = new Spielkarten();
 
         //TODO: Zufällige Karte zuweisen
-        //ablagestapel = new Ablagestapel();
+        ablagestapel = new Ablagestapel(spielkarten.zufallskarte(true));
     }
 
     public boolean istStapelbar(Karte k){

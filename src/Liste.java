@@ -1,4 +1,4 @@
-public class Liste {
+public class Liste{
     private Listenelement erster;
 
     public Liste(Listenelement l){
