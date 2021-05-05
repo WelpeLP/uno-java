@@ -1,5 +1,3 @@
-import org.jetbrains.annotations.*;
-
 import java.util.List;
 
 public class Spielkarten {
@@ -13,8 +11,7 @@ public class Spielkarten {
         return kartenliste;
     }
 
-    private @NotNull
-    Liste kartenInit(){
+    private Liste kartenInit(){
         //kartenwert: 0-9 Normalkarten; 20 = Aussetzen; 30 = 2+ Karte; 40 = Richtungswechsel; 50 = 4+ Karte; 60 = Farbwunsch
         Liste kl = new Liste(new Abschluss());
 
