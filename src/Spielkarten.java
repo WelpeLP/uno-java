@@ -1,94 +1,118 @@
 import java.util.List;
 
 public class Spielkarten {
-    private Liste kartenliste;
+    private Karte[] kartenliste;
+    private int[] kartenanzahl;
 
     public Spielkarten(){
-        kartenliste = kartenInit();
+        kartenliste = new Karte[54];
+        kartenanzahl = new int[54];
+        kartenInit();
     }
 
-    public Liste getKartenliste(){
-        return kartenliste;
-    }
-
-    private Liste kartenInit(){
+    private void kartenInit(){
         //kartenwert: 0-9 Normalkarten; 20 = Aussetzen; 30 = 2+ Karte; 40 = Richtungswechsel; 50 = 4+ Karte; 60 = Farbwunsch
-        Liste kl = new Liste(new Abschluss());
 
         //Alle 0-9 Karten, alle Farben
         for(int i=0; i<10; i++){
-            Karte k1 = new Karte(i, Karte.Kartenfarbe.BLAU, 2);
-            Karte k2 = new Karte(i, Karte.Kartenfarbe.GRUEN, 2);
-            Karte k3 = new Karte(i, Karte.Kartenfarbe.ROT, 2);
-            Karte k4 = new Karte(i, Karte.Kartenfarbe.GELB, 2);
-            kl.hintenAnfuegen(k1);
-            kl.hintenAnfuegen(k2);
-            kl.hintenAnfuegen(k3);
-            kl.hintenAnfuegen(k4);
+            Karte k1 = new Karte(i, Karte.Kartenfarbe.BLAU);
+            kartenliste[i] = k1;
+            kartenanzahl[i] = 2;
+        }
+        for(int i=10; i<20; i++){
+            Karte k2 = new Karte(i-10, Karte.Kartenfarbe.GRUEN);
+            kartenliste[i] = k2;
+            kartenanzahl[i] = 2;
+        }
+        for(int i=20; i<30; i++){
+            Karte k3 = new Karte(i-20, Karte.Kartenfarbe.ROT);
+            kartenliste[i] = k3;
+            kartenanzahl[i] = 2;
+        }
+        for(int i=30; i<40; i++){
+            Karte k4 = new Karte(i-30, Karte.Kartenfarbe.GELB);
+            kartenliste[i] = k4;
+            kartenanzahl[i] = 2;
         }
 
         //Aussetzen, alle Farben
-        Karte k5 = new Karte(20, Karte.Kartenfarbe.BLAU, 2);
-        Karte k6= new Karte(20, Karte.Kartenfarbe.GRUEN, 2);
-        Karte k7 = new Karte(20, Karte.Kartenfarbe.ROT, 2);
-        Karte k8 = new Karte(20, Karte.Kartenfarbe.GELB, 2);
-        kl.hintenAnfuegen(k5);
-        kl.hintenAnfuegen(k6);
-        kl.hintenAnfuegen(k7);
-        kl.hintenAnfuegen(k8);
+        Karte k5 = new Karte(20, Karte.Kartenfarbe.BLAU);
+        kartenliste[40] = k5;
+        kartenanzahl[40] = 2;
+        Karte k6 = new Karte(20, Karte.Kartenfarbe.GRUEN);
+        kartenliste[41] = k6;
+        kartenanzahl[41] = 2;
+        Karte k7 = new Karte(20, Karte.Kartenfarbe.ROT);
+        kartenliste[42] = k7;
+        kartenanzahl[42] = 2;
+        Karte k8 = new Karte(20, Karte.Kartenfarbe.GELB);
+        kartenliste[43] = k8;
+        kartenanzahl[43] = 2;
 
         //2Plus, alle Farben
-        Karte k9 = new Karte(30, Karte.Kartenfarbe.BLAU, 2);
-        Karte k10 = new Karte(30, Karte.Kartenfarbe.GRUEN, 2);
-        Karte k11 = new Karte(30, Karte.Kartenfarbe.ROT, 2);
-        Karte k12 = new Karte(30, Karte.Kartenfarbe.GELB, 2);
-        kl.hintenAnfuegen(k9);
-        kl.hintenAnfuegen(k10);
-        kl.hintenAnfuegen(k11);
-        kl.hintenAnfuegen(k12);
+        Karte k9 = new Karte(30, Karte.Kartenfarbe.BLAU);
+        kartenliste[44] = k9;
+        kartenanzahl[44] = 2;
+        Karte k10 = new Karte(30, Karte.Kartenfarbe.GRUEN);
+        kartenliste[45] = k10;
+        kartenanzahl[45] = 2;
+        Karte k11 = new Karte(30, Karte.Kartenfarbe.ROT);
+        kartenliste[46] = k11;
+        kartenanzahl[46] = 2;
+        Karte k12 = new Karte(30, Karte.Kartenfarbe.GELB);
+        kartenliste[47] = k12;
+        kartenanzahl[47] = 2;
 
         //Richtungswechsel, alle Farben
-        Karte k13 = new Karte(40, Karte.Kartenfarbe.BLAU, 2);
-        Karte k14 = new Karte(40, Karte.Kartenfarbe.GRUEN, 2);
-        Karte k15 = new Karte(40, Karte.Kartenfarbe.ROT, 2);
-        Karte k16 = new Karte(40, Karte.Kartenfarbe.GELB, 2);
-        kl.hintenAnfuegen(k13);
-        kl.hintenAnfuegen(k14);
-        kl.hintenAnfuegen(k15);
-        kl.hintenAnfuegen(k16);
+        Karte k13 = new Karte(40, Karte.Kartenfarbe.BLAU);
+        kartenliste[48] = k13;
+        kartenanzahl[48] = 2;
+        Karte k14 = new Karte(40, Karte.Kartenfarbe.GRUEN);
+        kartenliste[49] = k14;
+        kartenanzahl[49] = 2;
+        Karte k15 = new Karte(40, Karte.Kartenfarbe.ROT);
+        kartenliste[50] = k15;
+        kartenanzahl[50] = 2;
+        Karte k16 = new Karte(40, Karte.Kartenfarbe.GELB);
+        kartenliste[51] = k16;
+        kartenanzahl[51] = 2;
 
         //4Plus Karte
-        Karte k17 = new Karte(50, Karte.Kartenfarbe.SCHWARZ, 4);
-        kl.hintenAnfuegen(k17);
+        Karte k17 = new Karte(50, Karte.Kartenfarbe.SCHWARZ);
+        kartenliste[52] = k17;
+        kartenanzahl[52] = 4;
 
         //Farbwunsch Karte
-        Karte k18 = new Karte(60, Karte.Kartenfarbe.SCHWARZ, 4);
-        kl.hintenAnfuegen(k18);
-
-        return kl;
+        Karte k18 = new Karte(60, Karte.Kartenfarbe.SCHWARZ);
+        kartenliste[53] = k18;
+        kartenanzahl[53] = 4;
     }
 
-    public Karte zufallskarte(boolean nurZahlen) {
+    public void kartenlisteAusgeben() {
+        for(int i=0; i < kartenliste.length; i++){
+            System.out.println(kartenliste[i].farbe() + " " + kartenliste[i].kartenwert() + " " + kartenanzahl[i]);
+        }
+    }
+
+    public Karte karteZiehen(boolean nurZahlen) {
         int anzahl;
         if(nurZahlen){
             anzahl = 9 * 4;
         }else{
-            anzahl = kartenliste.getAnzahl();
+            anzahl = 54;
         }
-        Listenelement l = kartenliste.getErster();
+        Karte k = null;
+        int kAnzahl;
         boolean karteNichtVerfuegbar = true;
         while (karteNichtVerfuegbar) {
             int zufallszahl = (int) Math.floor(Math.random() * anzahl);
-            for (int i = 0; i <= zufallszahl; i++) {
-                l = l.getNaechster();
-            }
-            Karte k1 = (Karte) l.getInhalt();
-            if (l.getInhalt().getAnzahl() > 0) {
+            k = kartenliste[zufallszahl];
+            kAnzahl = kartenanzahl[zufallszahl];
+            if (kAnzahl > 0) {
                 karteNichtVerfuegbar = false;
-                Karte lNeu = new Karte(l.getInhalt().kartenwert(), l.getInhalt().farbe(), l.getInhalt().getAnzahl() - 1); //Neue Karte mit Anzahl-1
-                kartenliste.inhaltErsetzen(l.getInhalt(), lNeu);
+                kartenanzahl[zufallszahl]--;
             }
         }
-        return (Karte) l.getInhalt();
+        return k;
     }
 }

@@ -4,7 +4,7 @@ public class Ablagestapel {
 
     public Ablagestapel(Karte k){
         karte = k;
-        ziehen = 0;
+        ziehen = 1;
     }
 
     public Karte getKarte(){
@@ -17,5 +17,9 @@ public class Ablagestapel {
 
     public void addZiehen(int z){
         ziehen += z;
+    }
+
+    public void resetZiehen(){
+        ziehen = 1;
     }
 }

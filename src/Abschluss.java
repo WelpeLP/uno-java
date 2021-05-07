@@ -7,7 +7,7 @@ public class Abschluss extends Listenelement{
 
     @Override
     public Listenelement hintenAnfuegen(Datenelement l) {
-        return new Knoten(this);
+        return new Knoten(this, l);
     }
 
     @Override

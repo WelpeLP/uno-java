@@ -1,7 +1,10 @@
 public class Spieler extends Datenelement{
     private String spielername;
+    private Liste handkarten;
+
     public Spieler(String name){
         spielername = name;
+        handkarten = new Liste(new Abschluss());
     }
 
     @Override
@@ -22,8 +25,13 @@ public class Spieler extends Datenelement{
     }
 
     @Override
-    public int getAnzahl() {
-        System.out.println("Keine Karte!");
-        return -1;
+    public Liste getHandkarten() {
+        return handkarten;
     }
+
+    @Override
+    public void setHandkarten(Liste kl) {
+        handkarten = kl;
+    }
+
 }

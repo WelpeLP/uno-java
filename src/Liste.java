@@ -20,4 +20,12 @@ public class Liste{
     public void inhaltErsetzen(Datenelement vorher, Datenelement nachher){
         erster = erster.inhaltErsetzen(vorher, nachher);
     }
+    public void listeAusgeben(){
+        int anzahl = getAnzahl();
+        Listenelement l = getErster();
+        for (int i=0; i<anzahl; i++){
+            System.out.println(l.getInhalt().farbe().toString() + l.getInhalt().kartenwert());
+            l = l.getNaechster();
+        }
+    }
 }

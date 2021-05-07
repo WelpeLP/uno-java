@@ -4,12 +4,10 @@ public class Karte extends Datenelement{
         ROT, BLAU, GRUEN, GELB, SCHWARZ
     }
     private Kartenfarbe farbe;
-    private int anzahl;
 
-    public Karte(int w, Kartenfarbe f, int a){
+    public Karte(int w, Kartenfarbe f){
         kartenwert = w;
         farbe = f;
-        anzahl = a;
     }
 
     @Override
@@ -29,7 +27,13 @@ public class Karte extends Datenelement{
     }
 
     @Override
-    public int getAnzahl() {
-        return 0;
+    public Liste getHandkarten() {
+        System.out.println("Kein Spieler!");
+        return null;
+    }
+
+    @Override
+    public void setHandkarten(Liste kl) {
+        System.out.println("Kein Spieler!");
     }
 }

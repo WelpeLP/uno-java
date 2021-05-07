@@ -2,8 +2,9 @@ public class Knoten extends Listenelement{
     private Listenelement naechster;
     private Datenelement inhalt;
 
-    public Knoten(Listenelement l){
+    public Knoten(Listenelement l, Datenelement i){
         naechster = l;
+        inhalt = i;
     }
 
     @Override
