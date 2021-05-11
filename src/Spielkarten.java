@@ -115,4 +115,15 @@ public class Spielkarten {
         }
         return k;
     }
+
+    public Karte stringZuKarte(String s){
+        for(int i=0; i<kartenliste.length; i++){
+            String kartenstring = kartenliste[i].farbe().toString() + kartenliste[i].kartenwert();
+            if(kartenstring.equals(s)){
+                return kartenliste[i];
+            }
+        }
+        System.out.println("Karte nicht gefunden!");
+        return null;
+    }
 }

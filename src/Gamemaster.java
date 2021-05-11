@@ -10,13 +10,25 @@ public class Gamemaster {
         ZIEHEN, LEGEN
     }
 
-    public Gamemaster(Liste s){
-        spielerliste = s;
+    public Gamemaster(Liste sl){
+        spielerliste = sl;
         uhrzeigersinn = true;
         spielkarten = new Spielkarten();
-
-        //TODO: Zufällige Karte zuweisen
         ablagestapel = new Ablagestapel(spielkarten.karteZiehen(true));
+        kartenAusteilen(sl);
+        reihenfolge();
+    }
+
+    public void kartenAusteilen(Liste spieler){
+        Listenelement l = spieler.getErster();
+        for(int i=0; i<spieler.getAnzahl(); i++){
+            for(int j=0; j<7; j++){
+                Liste hk = l.getInhalt().getHandkarten();
+                hk.hintenAnfuegen(spielkarten.karteZiehen(false));
+                l.getInhalt().setHandkarten(hk);
+            }
+            l = l.getNaechster();
+        }
     }
 
     public boolean istStapelbar(Karte k){
@@ -37,7 +49,7 @@ public class Gamemaster {
             for(int i = 0; i<spielernr; i++){
                 s = s.getNaechster();
             }
-            spielzug((Spieler) s.getInhalt());
+            //spielzug((Spieler) s.getInhalt());
             if(uhrzeigersinn){
                 spielernr++;
                 if(spielernr == spielerliste.getAnzahl()) {
@@ -85,6 +97,7 @@ public class Gamemaster {
                 "Karte wählen"
         );
         System.out.println(string);
+        k = spielkarten.stringZuKarte(string);
         //warten, bis karte ausgewählt und istStapelbar(k); k = ausgewählte Karte
         //karte legen
         //karte bei Spieler - 1
