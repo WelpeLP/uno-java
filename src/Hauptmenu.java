@@ -1,31 +1,152 @@
-// JDialog
-import javax.swing.*;
-// JMenuBar
-import java.awt.*;
-import javax.swing.JDialog;
-import javax.swing.border.LineBorder;
-import javax.swing.border.Border;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Hauptmenu {
-  
-  public Hauptmenu(){
-    JDialog hauptJDialog = new JDialog();
-    hauptJDialog.setTitle("Hauptmenü");
-    hauptJDialog.setSize(450,300);
-      
-    // Border evtl
-    Border bo = new LineBorder(Color.yellow);
-    
-    JMenuBar bar = new JMenuBar();
-    bar.setBorder(bo);
-    JMenu menu = new JMenu("UNO");
-    JMenuItem item = new JMenuItem("Spielen");
-    menu.add(item);
-    bar.add(menu);
-    hauptJDialog.setJMenuBar(bar);
-    hauptJDialog.setVisible(true);
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class Hauptmenu extends JFrame {
+
+  JLabel text;
+  JLabel text2;
+  JLabel texts1;
+  JLabel texts2;
+  JLabel texts3;
+  JLabel texts4;
+
+  JButton nSpiel;
+  JButton Spiels;
+
+  JTextField eingabes1;
+  JTextField eingabes2;
+  JTextField eingabes3;
+  JTextField eingabes4;
+
+
+
+  public Hauptmenu() {
+    setVisible(true);
+    setSize(500,300);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setLocationRelativeTo(null);
+    setTitle("Hauptmenü");
+    setResizable(false);
+    setLayout(null);
+
+    //Schriftzug UNO
+
+    //1,2 = Position im Fenster 2,3 = Größe des Textfeldes
+    text = new JLabel("UNO");
+    text.setBounds(500, 10, 500, 100);
+    Font schrift = new Font("Serif", Font.BOLD + Font.ITALIC, 100 ); //Schriftart + Kursiv etc. + Größe
+    text.setFont(schrift);
+    add(text);
+
+    //Schriftzug Spieler wählen
+    text2 = new JLabel("Spieler wählen");
+    text2.setBounds(450, 150, 500, 70);
+    Font schrift2 = new Font("Serif", Font.BOLD + Font.ITALIC, 50);
+    text2.setFont(schrift2);
+    add (text2);
+    text2.setVisible(false);
+
+    //Schriftzug Spieler 1
+    texts1 = new JLabel("Spieler 1");
+    texts1.setBounds(450, 230, 200, 25);
+    Font schrifts1 = new Font("Serif", Font.BOLD, 50);
+    text2.setFont(schrifts1);
+    add(texts1);
+    texts1.setVisible(false);
+
+    //Schriftzug Spieler 2
+    texts2 = new JLabel("Spieler 2");
+    texts2.setBounds(450, 300, 200, 25);
+    Font schrifts2 = new Font("Serif", Font.BOLD, 50);
+    text2.setFont(schrifts2);
+    add(texts2);
+    texts2.setVisible(false);
+
+    //Schriftzug Spieler 3
+    texts3 = new JLabel("Spieler 3");
+    texts3.setBounds(450, 370, 200, 25);
+    Font schrifts3 = new Font("Serif", Font.BOLD, 50);
+    text2.setFont(schrifts3);
+    add(texts3);
+    texts3.setVisible(false);
+
+
+    //Schriftzug Spieler 4
+    texts4 = new JLabel("Spieler 4");
+    texts4.setBounds(450, 440, 200, 25);
+    Font schrifts4 = new Font("Serif", Font.BOLD, 50);
+    text2.setFont(schrifts4);
+    add(texts4);
+    texts4.setVisible(false);
+
+    Listener l = new Listener();
+
+    //Button Neues Spiel
+    nSpiel = new JButton("Neues Spiel");
+    nSpiel.setBounds(500, 200, 200, 25);
+    nSpiel.addActionListener(l);
+    add(nSpiel);
+
+    //Button Spiel starten
+    Spiels = new JButton("Spiel starten");
+    Spiels.setBounds(500, 550, 200, 25);
+    Spiels.addActionListener(l);
+    add(Spiels);
+    Spiels.setVisible(false);
+
+    //Textfeld Spieler 1
+    eingabes1 = new JTextField();
+    eingabes1.setBounds(450, 260, 200, 25);
+    add(eingabes1);
+    eingabes1.setVisible(false);
+
+    //Textfeld Spieler 2
+    eingabes2 = new JTextField();
+    eingabes2.setBounds(450, 330, 200, 25);
+    add(eingabes2);
+    eingabes2.setVisible(false);
+
+    //Textfeld Spieler 3
+    eingabes3 = new JTextField();
+    eingabes3.setBounds(450, 400, 200, 25);
+    add(eingabes3);
+    eingabes3.setVisible(false);
+
+    //Textfeld Spieler
+    eingabes4 = new JTextField();
+    eingabes4.setBounds(450, 470, 200, 25);
+    add(eingabes4);
+    eingabes4.setVisible(false);
+
   }
-  
-  
-  
+
+  private class Listener implements ActionListener {
+
+    public void actionPerformed (ActionEvent e) {
+      if (e.getSource() == nSpiel) {
+
+        nSpiel.setVisible(false);
+
+        text2.setVisible(true);
+        texts1.setVisible(true);
+        texts2.setVisible(true);
+        texts3.setVisible(true);
+        texts4.setVisible(true);
+        Spiels.setVisible(true);
+        eingabes1.setVisible(true);
+        eingabes2.setVisible(true);
+        eingabes3.setVisible(true);
+        eingabes4.setVisible(true);
+      }
+      else {}
+
+    }
+  }
 }
+
