@@ -1,8 +1,11 @@
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -23,6 +26,9 @@ public class Hauptmenu extends JFrame {
   JTextField eingabes2;
   JTextField eingabes3;
   JTextField eingabes4;
+
+  JCheckBox enables3;
+  JCheckBox enables4;
 
 
 
@@ -76,7 +82,6 @@ public class Hauptmenu extends JFrame {
     add(texts3);
     texts3.setVisible(false);
 
-
     //Schriftzug Spieler 4
     texts4 = new JLabel("Spieler 4");
     texts4.setBounds(450, 440, 200, 25);
@@ -116,21 +121,42 @@ public class Hauptmenu extends JFrame {
     eingabes3 = new JTextField();
     eingabes3.setBounds(450, 400, 200, 25);
     add(eingabes3);
+    eingabes3.setEnabled(false);
     eingabes3.setVisible(false);
 
-    //Textfeld Spieler
+    //Textfeld Spieler 4
     eingabes4 = new JTextField();
     eingabes4.setBounds(450, 470, 200, 25);
     add(eingabes4);
+    eingabes4.setEnabled(false);
     eingabes4.setVisible(false);
 
+    cbListener lcb = new cbListener();
+
+    //CheckBox Spieler 3
+    enables3 = new JCheckBox ("");
+    enables3.setBounds(520, 370, 150, 25);
+    enables3.addItemListener(lcb);
+    add(enables3);
+    enables3.setVisible(false);
+
+    //CheckBox Spieler 4
+    enables4 = new JCheckBox ("");
+    enables4.setBounds(520, 440, 150, 25);
+    enables4.addItemListener(lcb);
+    add(enables4);
+    enables4.setVisible(false);
   }
 
+  //Unterklassen Listener
+
   private class Listener implements ActionListener {
+    //Listener für Buttons
 
     public void actionPerformed (ActionEvent e) {
-      if (e.getSource() == nSpiel) {
 
+      //Der Button Neues Spiel wird gedrückt und der User wird auf die Seite der Spielerauswahl weitergeleitet
+      if (e.getSource() == nSpiel) {
         nSpiel.setVisible(false);
 
         text2.setVisible(true);
@@ -143,10 +169,28 @@ public class Hauptmenu extends JFrame {
         eingabes2.setVisible(true);
         eingabes3.setVisible(true);
         eingabes4.setVisible(true);
+        enables3.setVisible(true);
+        enables4.setVisible(true);
+      }
+      else {}
+    }
+  }
+
+  private class cbListener implements ItemListener{
+    //Listener für Checkboxen
+
+    public void itemStateChanged(ItemEvent e) {
+      if (enables3.isSelected()){
+        eingabes3.setEnabled(true);
+      }
+      else {}
+
+      if (enables4.isSelected()){
+        eingabes4.setEnabled(true);
       }
       else {}
 
     }
+
   }
 }
-
