@@ -145,6 +145,7 @@ public class Hauptmenu extends JFrame {
     enables4.setBounds(520, 440, 150, 25);
     enables4.addItemListener(lcb);
     add(enables4);
+    enables4.setEnabled(false);
     enables4.setVisible(false);
   }
 
@@ -182,9 +183,11 @@ public class Hauptmenu extends JFrame {
     public void itemStateChanged(ItemEvent e) {
       if (enables3.isSelected()){
         eingabes3.setEnabled(true);
+        enables4.setEnabled(true);
       }
       else {
         eingabes3.setEnabled(false);
+        enables4.setEnabled(false);
       }
 
       if (enables4.isSelected()){
