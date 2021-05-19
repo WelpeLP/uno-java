@@ -183,12 +183,16 @@ public class Hauptmenu extends JFrame {
       if (enables3.isSelected()){
         eingabes3.setEnabled(true);
       }
-      else {}
+      else {
+        eingabes3.setEnabled(false);
+      }
 
       if (enables4.isSelected()){
         eingabes4.setEnabled(true);
       }
-      else {}
+      else {
+        eingabes4.setEnabled(false);
+      }
 
     }
 
