@@ -174,12 +174,32 @@ public class Hauptmenu extends JFrame {
         enables4.setVisible(true);
       }
       else {}
+      
+      //Ein neues Spiel wird gestartet
+      if (e.getSource() == Spiels){
+        text2.setVisible(false);
+        texts1.setVisible(false);
+        texts2.setVisible(false);
+        texts3.setVisible(false);
+        texts4.setVisible(false);
+        Spiels.setVisible(false);
+        eingabes1.setVisible(false);
+        eingabes2.setVisible(false);
+        eingabes3.setVisible(false);
+        eingabes4.setVisible(false);
+        enables3.setVisible(false);
+        enables4.setVisible(false);
+        text.setVisible(false);
+        
+        Gamemaster gamemaster = new Gamemaster(spieler);
+      }
+      else{}
     }
   }
 
   private class cbListener implements ItemListener{
     //Listener für Checkboxen
-
+    
     public void itemStateChanged(ItemEvent e) {
       if (enables3.isSelected()){
         eingabes3.setEnabled(true);
@@ -196,8 +216,6 @@ public class Hauptmenu extends JFrame {
       else {
         eingabes4.setEnabled(false);
       }
-
     }
-
   }
 }
