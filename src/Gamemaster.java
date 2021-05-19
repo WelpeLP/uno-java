@@ -6,6 +6,7 @@ public class Gamemaster {
     private Spielkarten spielkarten;
     private boolean uhrzeigersinn, spielstopp;
     private int spielernr;
+
     public enum Spielzug{
         ZIEHEN, LEGEN
     }
@@ -16,7 +17,7 @@ public class Gamemaster {
         spielkarten = new Spielkarten();
         ablagestapel = new Ablagestapel(spielkarten.karteZiehen(true));
         kartenAusteilen(sl);
-        reihenfolge();
+        //reihenfolge();
     }
 
     public void kartenAusteilen(Liste spieler){
@@ -49,7 +50,7 @@ public class Gamemaster {
             for(int i = 0; i<spielernr; i++){
                 s = s.getNaechster();
             }
-            //spielzug((Spieler) s.getInhalt());
+            spielzug((Spieler) s.getInhalt());
             if(uhrzeigersinn){
                 spielernr++;
                 if(spielernr == spielerliste.getAnzahl()) {

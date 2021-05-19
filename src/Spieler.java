@@ -27,6 +27,7 @@ public class Spieler extends Datenelement{
     @Override
     public Liste getHandkarten() {
         return handkarten;
+        //return new Liste(new Abschluss());
     }
 
     @Override

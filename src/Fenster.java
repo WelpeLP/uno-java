@@ -1,7 +1,7 @@
 import javax.swing.JFrame;
 
 public class Fenster {
-    public static void main (String args []) {
+    public void fensterOeffnen() {
         JFrame jf = new Hauptmenu();
         jf.setVisible(true);
         jf.setSize(1280,720);

@@ -2,6 +2,7 @@ public class Betrieb {
 
     public static void main(String[] args){
         Liste spieler = new Liste(new Abschluss());
+
         spieler.hintenAnfuegen(new Spieler("Thomas"));
         spieler.hintenAnfuegen(new Spieler("Anne"));
         spieler.hintenAnfuegen(new Spieler("John"));
@@ -9,7 +10,7 @@ public class Betrieb {
         Gamemaster gamemaster = new Gamemaster(spieler);
 
         Spielkarten spielkarten = new Spielkarten();
-        Karte k = spielkarten.karteZiehen(false);
+        //Karte k = spielkarten.karteZiehen(false);
         //System.out.println(k.farbe() + " " + k.kartenwert());
         //spielkarten.kartenlisteAusgeben();
         Spieler s = (Spieler) spieler.getErster().getInhalt();
