@@ -11,6 +11,10 @@ public class Ablagestapel {
         return karte;
     }
 
+    public void karteLegen(Karte k){
+
+    }
+
     public int getZiehen(){
         return ziehen;
     }

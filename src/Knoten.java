@@ -13,8 +13,8 @@ public class Knoten extends Listenelement{
     }
 
     @Override
-    public Listenelement hintenAnfuegen(Datenelement l) {
-        naechster = naechster.hintenAnfuegen(l);
+    public Listenelement hintenAnfuegen(Datenelement d) {
+        naechster = naechster.hintenAnfuegen(d);
         return this;
     }
 
@@ -36,5 +36,15 @@ public class Knoten extends Listenelement{
             naechster = naechster.inhaltErsetzen(vorher, nachher);
         }
         return this;
+    }
+
+    @Override
+    public Listenelement loeschen(Datenelement d) {
+        if(inhalt == d){
+            return naechster;
+        }else{
+            naechster = naechster.loeschen(d);
+            return this;
+        }
     }
 }

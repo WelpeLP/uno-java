@@ -20,6 +20,11 @@ public class Liste{
     public void inhaltErsetzen(Datenelement vorher, Datenelement nachher){
         erster = erster.inhaltErsetzen(vorher, nachher);
     }
+
+    public void loeschen(Datenelement d){
+        erster = erster.loeschen(d);
+    }
+
     public void listeAusgeben(){
         int anzahl = getAnzahl();
         Listenelement l = getErster();

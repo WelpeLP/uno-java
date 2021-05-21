@@ -1,6 +1,11 @@
 public class Betrieb {
 
     public static void main(String[] args){
+        Fenster.oeffnen();
+        //test();
+    }
+
+    public void test(){
         Liste spieler = new Liste(new Abschluss());
 
         spieler.hintenAnfuegen(new Spieler("Thomas"));

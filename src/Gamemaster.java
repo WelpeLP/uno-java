@@ -17,7 +17,7 @@ public class Gamemaster {
         spielkarten = new Spielkarten();
         ablagestapel = new Ablagestapel(spielkarten.karteZiehen(true));
         kartenAusteilen(sl);
-        //reihenfolge();
+        reihenfolge();
     }
 
     public void kartenAusteilen(Liste spieler){
@@ -107,7 +107,13 @@ public class Gamemaster {
         switch (k.kartenwert()) {
             case 20: spielernr++; break; //Aussetzen
             case 30: ablagestapel.addZiehen(2); break; //2+
-            case 40: uhrzeigersinn = !uhrzeigersinn; break; //Richtungswechsel
+            case 40:
+                if(spielerliste.getAnzahl() == 2){
+                    spielernr++;
+                }else{
+                    uhrzeigersinn = !uhrzeigersinn;
+                }
+                break; //Richtungswechsel (= Aussetzen bei 2 Spielern)
             case 50: ablagestapel.addZiehen(4); break; //4+ //TODO: Farbwunsch abfragen
             case 60: break; //TODO: Farbwunsch abfragen
             default: break; //Karten 0-9, nichts tun
