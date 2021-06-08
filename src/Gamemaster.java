@@ -70,10 +70,38 @@ public class Gamemaster {
     }
 
     public void spielzug(Spieler s){
+        String options[] = new String[4];
+        options[0] = "Uno sagen";
+        options[1] = "Ziehen (" + ablagestapel.getZiehen() + ")";
+        options[2] = "Legen";
+        options[3] = "Zug beenden";
+
+        String option = (String) JOptionPane.showInputDialog(
+                new JFrame(),
+                "Wähle aus, was du tun willst. Ablagestapel: " + ablagestapel.getKarte().farbe().toString() + " " + kartenwertToString(ablagestapel.getKarte().kartenwert()),
+                "Spieler " + s.spielername(),
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                "Legen"
+        );
         Spielzug spielzug = Spielzug.LEGEN; //TODO: Zug abfragen
         switch (spielzug) {
             case ZIEHEN -> ziehen(s);
             case LEGEN -> legen(s);
+        }
+    }
+
+    private String kartenwertToString(int wert){
+        String kartenwert;
+        //kartenwert: 0-9 Normalkarten; 20 = Aussetzen; 30 = 2+ Karte; 40 = Richtungswechsel; 50 = 4+ Karte; 60 = Farbwunsch
+        switch(wert){
+            case 20 -> kartenwert = "Aussetzen";
+            case 30 -> kartenwert = "2+";
+            case 40 -> kartenwert = "Richtungswechsel";
+            case 50 -> kartenwert = "4+";
+            case 60 -> kartenwert = "Farbwunsch";
+            default -> kartenwert = wert;
         }
     }
 
