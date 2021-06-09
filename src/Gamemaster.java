@@ -7,10 +7,6 @@ public class Gamemaster {
     private boolean uhrzeigersinn, spielstopp;
     private int spielernr;
 
-    public enum Spielzug{
-        ZIEHEN, LEGEN
-    }
-
     public Gamemaster(Liste sl){
         spielerliste = sl;
         uhrzeigersinn = true;
@@ -46,6 +42,7 @@ public class Gamemaster {
         spielstopp = false;
         spielernr = 0;
         while (!spielstopp) {
+            System.out.println(spielernr);
             Listenelement s = spielerliste.getErster();
             for(int i = 0; i<spielernr; i++){
                 s = s.getNaechster();
@@ -53,7 +50,9 @@ public class Gamemaster {
             spielzug((Spieler) s.getInhalt());
             if(uhrzeigersinn){
                 spielernr++;
-                if(spielernr == spielerliste.getAnzahl()) {
+                System.out.println("anzahl:" + spielerliste.getAnzahl());
+                if(spielernr == spielerliste.getAnzahl()+1) {
+                    System.out.println("spielernr = 0");
                     spielernr = 0;
                 }else if(spielernr > spielerliste.getAnzahl()) {
                     spielernr = 1;
@@ -67,6 +66,10 @@ public class Gamemaster {
                 }
             }
         }
+    }
+
+    public void reihenfolgeTeilZwei(){
+
     }
 
     public void spielzug(Spieler s){
@@ -85,12 +88,21 @@ public class Gamemaster {
                 options,
                 "Legen"
         );
-        Spielzug spielzug = Spielzug.LEGEN; //TODO: Zug abfragen
-        switch (spielzug) {
-            case ZIEHEN -> ziehen(s);
-            case LEGEN -> legen(s);
+
+        if(option.equals(options[0])){
+            //Uno sagen
+        }else if(option.equals(options[1])){
+            ziehen(s);
+        }else if(option.equals(options[2])){
+            legen(s);
+        }else if(option.equals(options[3])){
+            reihenfolgeTeilZwei();
+        }else{
+            System.out.println("Diese Auswahlmöglichkeit ist ungültig!");
         }
     }
+
+    private void nullFct() {}
 
     private String kartenwertToString(int wert){
         String kartenwert;
@@ -101,8 +113,9 @@ public class Gamemaster {
             case 40 -> kartenwert = "Richtungswechsel";
             case 50 -> kartenwert = "4+";
             case 60 -> kartenwert = "Farbwunsch";
-            default -> kartenwert = wert;
+            default -> kartenwert = String.valueOf(wert);
         }
+        return kartenwert;
     }
 
     private void ziehen(Spieler s){
@@ -112,24 +125,37 @@ public class Gamemaster {
         }
         ablagestapel.resetZiehen();
         s.setHandkarten(hk);
+        spielzug(s);
+    }
+
+    private String kartenDialog(Spieler s) {
+        String karte = (String) JOptionPane.showInputDialog(
+                    new JFrame(),
+                    "Welche Karte willst du legen? Ablagestapel: " + ablagestapel.getKarte().farbe().toString() + " " + kartenwertToString(ablagestapel.getKarte().kartenwert()),
+                    "Karte legen",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    handkartenFeld(s),
+                    s.getHandkarten().getErster().getInhalt().farbe().toString() + String.valueOf(s.getHandkarten().getErster().getInhalt().kartenwert())
+            );
+        return karte;
     }
 
     private void legen(Spieler s){
         Karte k = null;
-        String string = (String) JOptionPane.showInputDialog(
-                new JFrame(),
-                "Welche Karte willst du legen?",
-                "Karte legen",
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                handkartenFeld(s),
-                "Karte wählen"
-        );
-        System.out.println(string);
-        k = spielkarten.stringZuKarte(string);
-        //warten, bis karte ausgewählt und istStapelbar(k); k = ausgewählte Karte
-        //karte legen
-        //karte bei Spieler - 1
+        String karte = kartenDialog(s);
+        if(karte == null){
+            spielzug(s);
+        }
+        System.out.println(karte);
+        k = spielkarten.stringZuKarte(karte);
+        if(!istStapelbar(k)){
+            legen(s);
+        }
+        ablagestapel.karteLegen(k);
+        Liste hk = s.getHandkarten();
+        hk.loeschen(k);
+        s.setHandkarten(hk);
 
         //kartenwert: 0-9 Normalkarten; 20 = Aussetzen; 30 = 2+ Karte; 40 = Richtungswechsel; 50 = 4+ Karte; 60 = Farbwunsch
         switch (k.kartenwert()) {
@@ -146,6 +172,7 @@ public class Gamemaster {
             case 60: break; //TODO: Farbwunsch abfragen
             default: break; //Karten 0-9, nichts tun
         }
+        spielzug(s);
     }
 
     public Object[] handkartenFeld(Spieler s){

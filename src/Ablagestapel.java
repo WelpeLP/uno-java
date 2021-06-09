@@ -12,7 +12,7 @@ public class Ablagestapel {
     }
 
     public void karteLegen(Karte k){
-
+        karte = k;
     }
 
     public int getZiehen(){
