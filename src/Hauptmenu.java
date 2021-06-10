@@ -189,9 +189,9 @@ public class Hauptmenu extends JFrame {
         Liste spieler = new Liste(new Abschluss());
         spieler.hintenAnfuegen(new Spieler(eingabes1.getText()));
         spieler.hintenAnfuegen(new Spieler(eingabes2.getText()));
-        if(enables3.isSelected()){
+        if(eingabes3.getText().length() != 0){
           spieler.hintenAnfuegen(new Spieler(eingabes3.getText()));
-        }else if(enables4.isSelected()){
+        }else if(eingabes4.getText().length() != 0){
           spieler.hintenAnfuegen(new Spieler(eingabes4.getText()));
         }
         Gamemaster gamemaster = new Gamemaster(spieler);

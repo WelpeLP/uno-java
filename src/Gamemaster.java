@@ -10,6 +10,7 @@ public class Gamemaster {
     public Gamemaster(Liste sl){
         spielerliste = sl;
         uhrzeigersinn = true;
+        spielerliste.listeAusgeben();
         spielkarten = new Spielkarten();
         ablagestapel = new Ablagestapel(spielkarten.karteZiehen(true));
         kartenAusteilen(sl);
@@ -44,14 +45,14 @@ public class Gamemaster {
         while (!spielstopp) {
             System.out.println(spielernr);
             Listenelement s = spielerliste.getErster();
-            for(int i = 0; i<spielernr; i++){
+            for (int i = 0; i < spielernr; i++) {
                 s = s.getNaechster();
             }
             spielzug((Spieler) s.getInhalt());
             if(uhrzeigersinn){
                 spielernr++;
                 System.out.println("anzahl:" + spielerliste.getAnzahl());
-                if(spielernr == spielerliste.getAnzahl()+1) {
+                if(spielernr == spielerliste.getAnzahl()) {
                     System.out.println("spielernr = 0");
                     spielernr = 0;
                 }else if(spielernr > spielerliste.getAnzahl()) {
