@@ -184,7 +184,6 @@ public class Hauptmenu extends JFrame {
         eingabes4.setVisible(false);
         enables3.setVisible(false);
         enables4.setVisible(false);
-        text.setVisible(false);
 
         Liste spieler = new Liste(new Abschluss());
         System.out.println(eingabes1.getText() + " hinzugefügt");
