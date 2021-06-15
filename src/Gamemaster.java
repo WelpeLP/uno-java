@@ -160,7 +160,7 @@ public class Gamemaster {
             ablagestapel.setFarbwunsch(Karte.Kartenfarbe.ROT);
         }else if(farbe.equals(farben[2])){
             ablagestapel.setFarbwunsch(Karte.Kartenfarbe.BLAU);
-        }else if(farbe.equals(farben[3]){
+        }else if(farbe.equals(farben[3])){
             ablagestapel.setFarbwunsch(Karte.Kartenfarbe.GELB);
         }else{
             //Farbwunsch bei keiner Auswahl nochmal öffnen, um Farbwunsch zu erzwingen
