@@ -96,6 +96,7 @@ public class Spielkarten {
 
     public Karte karteZiehen(boolean nurZahlen) {
         int anzahl;
+        //nurZahlen: wird am Anfang des Spiels verwendet
         if(nurZahlen){
             anzahl = 9 * 4;
         }else{
@@ -103,6 +104,8 @@ public class Spielkarten {
         }
         Karte k = null;
         int kAnzahl;
+
+        //zufällige Karte finden, die noch gezogen werden kann
         boolean karteNichtVerfuegbar = true;
         while (karteNichtVerfuegbar) {
             int zufallszahl = (int) Math.floor(Math.random() * anzahl);
@@ -116,6 +119,8 @@ public class Spielkarten {
         return k;
     }
 
+    //String, der eine Karte beschreibt, wieder zu dieser zurückkonvertieren
+    //Anwendung: Auswahl der Karte im JOptionPane, der diese als String ausgibt, wieder in Datentyp Karte darzustellen
     public Karte stringZuKarte(String s){
         for(int i=0; i<kartenliste.length; i++){
             String kartenstring = kartenliste[i].farbe().toString() + " " + kartenwertToString(kartenliste[i].kartenwert());
@@ -127,6 +132,7 @@ public class Spielkarten {
         return null;
     }
 
+    //Funktion, um gespeicherten Werte einer Karte (siehe nächster Kommentar) lesbar zu machen
     public String kartenwertToString(int wert){
         String kartenwert;
         //kartenwert: 0-9 Normalkarten; 20 = Aussetzen; 30 = 2+ Karte; 40 = Richtungswechsel; 50 = 4+ Karte; 60 = Farbwunsch
@@ -141,20 +147,7 @@ public class Spielkarten {
         return kartenwert;
     }
 
-    public int stringToKartenwert(String wert){
-        int kartenwert;
-        //kartenwert: 0-9 Normalkarten; 20 = Aussetzen; 30 = 2+ Karte; 40 = Richtungswechsel; 50 = 4+ Karte; 60 = Farbwunsch
-        switch(wert){
-            case "Aussetzen" -> kartenwert = 20;
-            case "2+" -> kartenwert = 30;
-            case "Richtungswechsel" -> kartenwert = 40;
-            case "4+" -> kartenwert = 50;
-            case "Farbwunsch" -> kartenwert = 60;
-            default -> kartenwert = Integer.parseInt(wert);
-        }
-        return kartenwert;
-    }
-
+    //Handkarten eines Spielers in ein Feld umwandeln: Kartenauswahl im JOptionPane.showInputDialog
     public String[] handkartenFeld(Spieler s){
         int anzahl = s.getHandkarten().getAnzahl();
         Listenelement l = s.getHandkarten().getErster();
@@ -164,5 +157,16 @@ public class Spielkarten {
             l = l.getNaechster();
         }
         return feld;
+    }
+
+    //Funktion, ein Feld als einen String auszugeben.
+    //Anwendung: Handkarten eines Spielers im Fenster ausgeben.
+    public String stringfeldZuString(String[] feld){
+        String feldstring = "";
+        for(int i=0; i<feld.length-1; i++){
+            feldstring += feld[i] + ", ";
+        }
+        feldstring += feld[feld.length-1];
+        return feldstring;
     }
 }

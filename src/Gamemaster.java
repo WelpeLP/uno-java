@@ -46,16 +46,26 @@ public class Gamemaster {
     }
 
     public void reihenfolge(){
+        //Werte initialisieren
         spielstopp = false;
         spielernr = 0;
+
+        //"Spielschleife" bis Spielstopp
         while (!spielstopp) {
             System.out.println(spielernr);
+            //Spieler mit bestimmter spielernr aus Spielerliste getten
             Listenelement s = spielerliste.getErster();
             for (int i = 0; i < spielernr; i++) {
                 s = s.getNaechster();
             }
+
+            //zugBeendet zurücksetzen; alle Menüpunkte wieder sichtbar
             zugBeendet = false;
+
+            //Spielzug für Spieler s starten
             spielzug((Spieler) s.getInhalt());
+
+            //Geschachtelte if-Funktionen: Uhrzeigersinn (bzw. Richtungswechsel), Aussetzen berücksichtigen
             if(uhrzeigersinn){
                 spielernr++;
                 System.out.println("anzahl:" + spielerliste.getAnzahl());
@@ -74,24 +84,34 @@ public class Gamemaster {
                 }
             }
         }
+
+        //Wird bei spielstopp = true erreicht; zeigt Fenster mit Spieler an, der Gewonnen hat.
+        Listenelement s = spielerliste.getErster();
+        for (int i = 0; i < spielernr; i++) {
+            s = s.getNaechster();
+        }
+        spielabschluss((Spieler) s.getInhalt());
     }
 
     public void spielzug(Spieler s){
+        //Menüoptionen initialisieren
         String options[] = new String[4];
         options[0] = "Uno sagen";
         options[1] = "Zug beenden";
         options[2] = "Legen";
         options[3] = "Ziehen (" + ablagestapel.getZiehen() + ")";
 
+        //Menüoptionen für Zug schon beendet (gelegt/gezogen)
         if(zugBeendet){
             options = new String[2];
             options[0] = "Uno sagen";
             options[1] = "Zug beenden";
         }
 
+        //Auswahldialog anzeigen, Auswahl wird in option gespeichert
         String option = (String) JOptionPane.showInputDialog(
                 new JFrame(),
-                "Wähle aus, was du tun willst. Ablagestapel: " + ablagestapel.getKarte().farbe().toString() + " " + spielkarten.kartenwertToString(ablagestapel.getKarte().kartenwert()),
+                "Wähle aus, was du tun willst. \nAblagestapel: " + ablagestapel.getFarbwunsch() + " " + spielkarten.kartenwertToString(ablagestapel.getKarte().kartenwert()) + "\nDeine Handkarten: " + spielkarten.stringfeldZuString(spielkarten.handkartenFeld(s)),
                 "Spieler " + s.spielername(),
                 JOptionPane.QUESTION_MESSAGE,
                 null,
@@ -99,8 +119,9 @@ public class Gamemaster {
                 "Legen"
         );
 
+        //Funktionen für entsprechende Menüoption ausführen
         if(option.equals(options[0])){
-            //Uno sagen
+            //TODO: Uno sagen
         }else if(option.equals(options[1])){
             //nichts
         }else if(option.equals(options[2])){
@@ -114,15 +135,17 @@ public class Gamemaster {
     }
 
     private void farbwunsch(Spieler s){
+        //Auswahlmöglichkeiten initialisieren
         String farben[] = new String[4];
         farben[0] = "GRUEN";
         farben[1] = "ROT";
         farben[2] = "BLAU";
         farben[3] = "GELB";
 
+        //Dialog zur Auswahl anzeigen
         String farbe = (String) JOptionPane.showInputDialog(
                 new JFrame(),
-                "Wähle eine Farbe aus.",
+                "Wähle eine Farbe aus. \nDeine Handkarten: " + spielkarten.stringfeldZuString(spielkarten.handkartenFeld(s)),
                 "Farbwahl",
                 JOptionPane.QUESTION_MESSAGE,
                 null,
@@ -130,15 +153,17 @@ public class Gamemaster {
                 farben[0]
         );
 
-        if(farbe == farben[0]){
+        //Je nach Auswahl gewünschte Farbe speichern
+        if(farbe.equals(farben[0])){
             ablagestapel.setFarbwunsch(Karte.Kartenfarbe.GRUEN);
-        }else if(farbe == farben[1]){
+        }else if(farbe.equals(farben[1])){
             ablagestapel.setFarbwunsch(Karte.Kartenfarbe.ROT);
-        }else if(farbe == farben[2]){
+        }else if(farbe.equals(farben[2])){
             ablagestapel.setFarbwunsch(Karte.Kartenfarbe.BLAU);
-        }else if(farbe == farben[3]){
+        }else if(farbe.equals(farben[3]){
             ablagestapel.setFarbwunsch(Karte.Kartenfarbe.GELB);
         }else{
+            //Farbwunsch bei keiner Auswahl nochmal öffnen, um Farbwunsch zu erzwingen
             farbwunsch(s);
         }
 
@@ -147,6 +172,7 @@ public class Gamemaster {
 
     private void ziehen(Spieler s){
         Liste hk = s.getHandkarten();
+        //So oft eine Karte ziehen, wie man muss (z.B. 2, 4, 6, ...)
         for(int i=0; i<ablagestapel.getZiehen(); i++){
             hk.hintenAnfuegen(spielkarten.karteZiehen(false));
         }
@@ -159,7 +185,7 @@ public class Gamemaster {
     private String kartenDialog(Spieler s) {
         String karte = (String) JOptionPane.showInputDialog(
                     new JFrame(),
-                    "Welche Karte willst du legen? Ablagestapel: " + ablagestapel.getKarte().farbe().toString() + " " + spielkarten.kartenwertToString(ablagestapel.getKarte().kartenwert()),
+                    "Welche Karte willst du legen? \nAblagestapel: " + ablagestapel.getFarbwunsch() + " " + spielkarten.kartenwertToString(ablagestapel.getKarte().kartenwert()),
                     "Karte legen",
                     JOptionPane.QUESTION_MESSAGE,
                     null,
@@ -171,9 +197,10 @@ public class Gamemaster {
 
     private void legen(Spieler s){
         Karte k = null;
+        //Karte abfragen
         String karte = kartenDialog(s);
-        boolean b = karte == null;
-        if(b){
+        //falls abbrechen gedrückt, wieder zurück zum Hauptfenster
+        if(karte == null){
             spielzug(s);
         }
         System.out.println(karte);
@@ -220,7 +247,13 @@ public class Gamemaster {
         spielzug(s);
     }
 
-    public void spielabschluss(){
-
+    public void spielabschluss(Spieler s){
+        JOptionPane.showMessageDialog(
+                new JFrame(),
+                s.spielername() + " hat das Spiel gewonnen.",
+                "Gewonnen",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+        System.exit(0);
     }
 }

@@ -6,7 +6,7 @@ public class Ablagestapel {
     public Ablagestapel(Karte k){
         karte = k;
         ziehen = 1;
-        wunsch = Karte.Kartenfarbe.SCHWARZ;
+        wunsch = karte.farbe();
     }
 
     public Karte getKarte(){
