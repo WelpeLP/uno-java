@@ -118,12 +118,51 @@ public class Spielkarten {
 
     public Karte stringZuKarte(String s){
         for(int i=0; i<kartenliste.length; i++){
-            String kartenstring = kartenliste[i].farbe().toString() + kartenliste[i].kartenwert();
+            String kartenstring = kartenliste[i].farbe().toString() + " " + kartenwertToString(kartenliste[i].kartenwert());
             if(kartenstring.equals(s)){
                 return kartenliste[i];
             }
         }
         System.out.println("Karte nicht gefunden!");
         return null;
+    }
+
+    public String kartenwertToString(int wert){
+        String kartenwert;
+        //kartenwert: 0-9 Normalkarten; 20 = Aussetzen; 30 = 2+ Karte; 40 = Richtungswechsel; 50 = 4+ Karte; 60 = Farbwunsch
+        switch(wert){
+            case 20 -> kartenwert = "Aussetzen";
+            case 30 -> kartenwert = "2+";
+            case 40 -> kartenwert = "Richtungswechsel";
+            case 50 -> kartenwert = "4+";
+            case 60 -> kartenwert = "Farbwunsch";
+            default -> kartenwert = String.valueOf(wert);
+        }
+        return kartenwert;
+    }
+
+    public int stringToKartenwert(String wert){
+        int kartenwert;
+        //kartenwert: 0-9 Normalkarten; 20 = Aussetzen; 30 = 2+ Karte; 40 = Richtungswechsel; 50 = 4+ Karte; 60 = Farbwunsch
+        switch(wert){
+            case "Aussetzen" -> kartenwert = 20;
+            case "2+" -> kartenwert = 30;
+            case "Richtungswechsel" -> kartenwert = 40;
+            case "4+" -> kartenwert = 50;
+            case "Farbwunsch" -> kartenwert = 60;
+            default -> kartenwert = Integer.parseInt(wert);
+        }
+        return kartenwert;
+    }
+
+    public String[] handkartenFeld(Spieler s){
+        int anzahl = s.getHandkarten().getAnzahl();
+        Listenelement l = s.getHandkarten().getErster();
+        String[] feld = new String[anzahl];
+        for(int i=0; i<anzahl; i++){
+            feld[i] = l.getInhalt().farbe().toString() + " " + kartenwertToString(l.getInhalt().kartenwert());
+            l = l.getNaechster();
+        }
+        return feld;
     }
 }

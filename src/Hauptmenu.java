@@ -187,11 +187,16 @@ public class Hauptmenu extends JFrame {
         text.setVisible(false);
 
         Liste spieler = new Liste(new Abschluss());
+        System.out.println(eingabes1.getText() + " hinzugefügt");
         spieler.hintenAnfuegen(new Spieler(eingabes1.getText()));
+        System.out.println(eingabes2.getText() + " hinzugefügt");
         spieler.hintenAnfuegen(new Spieler(eingabes2.getText()));
-        if(eingabes3.getText().length() != 0){
+        if(enables3.isSelected()){
+          System.out.println(eingabes3.getText() + " hinzugefügt");
           spieler.hintenAnfuegen(new Spieler(eingabes3.getText()));
-        }else if(eingabes4.getText().length() != 0){
+        }
+        if(enables4.isSelected()){
+          System.out.println(eingabes4.getText() + " hinzugefügt");
           spieler.hintenAnfuegen(new Spieler(eingabes4.getText()));
         }
         Gamemaster gamemaster = new Gamemaster(spieler);
