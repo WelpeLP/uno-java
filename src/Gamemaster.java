@@ -4,7 +4,7 @@ public class Gamemaster {
     private Ablagestapel ablagestapel;
     private Liste spielerliste;
     private Spielkarten spielkarten;
-    private boolean uhrzeigersinn, spielstopp, zugBeendet;
+    private boolean uhrzeigersinn, spielstopp, zugBeendet, unoGesagt;
     private int spielernr;
 
     public Gamemaster(Liste sl){
@@ -59,8 +59,9 @@ public class Gamemaster {
                 s = s.getNaechster();
             }
 
-            //zugBeendet zurücksetzen; alle Menüpunkte wieder sichtbar
+            //zugBeendet und unoGesagt zurücksetzen; alle Menüpunkte wieder sichtbar
             zugBeendet = false;
+            unoGesagt = false;
 
             //Spielzug für Spieler s starten
             spielzug((Spieler) s.getInhalt());
@@ -95,17 +96,23 @@ public class Gamemaster {
 
     public void spielzug(Spieler s){
         //Menüoptionen initialisieren
-        String options[] = new String[4];
-        options[0] = "Uno sagen";
-        options[1] = "Zug beenden";
-        options[2] = "Legen";
-        options[3] = "Ziehen (" + ablagestapel.getZiehen() + ")";
-
-        //Menüoptionen für Zug schon beendet (gelegt/gezogen)
-        if(zugBeendet){
+        String options[];
+        if(zugBeendet && !unoGesagt){ //Menüoptionen für Zug schon beendet (gelegt/gezogen)
             options = new String[2];
-            options[0] = "Uno sagen";
-            options[1] = "Zug beenden";
+            options[0] = "Zug beenden";
+            options[1] = "Uno sagen";
+        }else if(zugBeendet && unoGesagt){ //zugBeendet und unoGesagt
+            options = new String[1];
+            options[0] = "Zug beenden";
+        }else if(!zugBeendet && unoGesagt){ //Zug nicht beendet und Uno gesagt
+            options = new String[2];
+            options[0] = "Legen";
+            options[1] = "Ziehen";
+        }else{ //Nichts trifft zu
+            options = new String[3];
+            options[0] = "Legen";
+            options[1] = "Ziehen (" + ablagestapel.getZiehen() + ")";
+            options[2] = "Uno sagen";
         }
 
         //Auswahldialog anzeigen, Auswahl wird in option gespeichert
@@ -116,17 +123,18 @@ public class Gamemaster {
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 options,
-                "Legen"
+                options[0]
         );
 
         //Funktionen für entsprechende Menüoption ausführen
-        if(option.equals(options[0])){
-            //TODO: Uno sagen
-        }else if(option.equals(options[1])){
-            //nichts
-        }else if(option.equals(options[2])){
+        if(option.equals("Zug beenden")){
+            checkUno(s);
+        }else if(option.equals("Uno sagen")){
+            unoGesagt = true;
+            spielzug(s);
+        }else if(option.equals("Legen")){
             legen(s);
-        }else if(option.equals(options[3])){
+        }else if(option.equals("Ziehen")){
             ziehen(s);
         }else{
             System.out.println("Diese Auswahlmöglichkeit ist ungültig!");
@@ -160,7 +168,7 @@ public class Gamemaster {
             ablagestapel.setFarbwunsch(Karte.Kartenfarbe.ROT);
         }else if(farbe.equals(farben[2])){
             ablagestapel.setFarbwunsch(Karte.Kartenfarbe.BLAU);
-        }else if(farbe.equals(farben[3]){
+        }else if(farbe.equals(farben[3])){
             ablagestapel.setFarbwunsch(Karte.Kartenfarbe.GELB);
         }else{
             //Farbwunsch bei keiner Auswahl nochmal öffnen, um Farbwunsch zu erzwingen
@@ -182,6 +190,7 @@ public class Gamemaster {
         spielzug(s);
     }
 
+    //Fenster, um Karte zum Legen auszuwählen
     private String kartenDialog(Spieler s) {
         String karte = (String) JOptionPane.showInputDialog(
                     new JFrame(),
@@ -245,6 +254,37 @@ public class Gamemaster {
             zugBeendet = false;
         }
         spielzug(s);
+    }
+
+    private void checkUno(Spieler s){
+        int anzahl = s.getHandkarten().getAnzahl();
+        if(anzahl > 1 && unoGesagt){
+            JOptionPane.showMessageDialog(
+                    new JFrame(),
+                    "Du hast Uno gesagt, obwohl du mehr als eine Karte hast.\nDu musst jetzt zwei ziehen.",
+                    "Uno gesagt",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+            //Zwei ziehen
+            Liste hk = s.getHandkarten();
+            for(int i=0; i<2; i++){
+                hk.hintenAnfuegen(spielkarten.karteZiehen(false));
+            }
+            s.setHandkarten(hk);
+        }else if(anzahl == 1 && !unoGesagt){
+            JOptionPane.showMessageDialog(
+                    new JFrame(),
+                    "Du hast vergessen, Uno zu sagen.\nDu musst jetzt zwei ziehen.",
+                    "Uno nicht gesagt",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+            //Zwei ziehen
+            Liste hk = s.getHandkarten();
+            for(int i=0; i<2; i++){
+                hk.hintenAnfuegen(spielkarten.karteZiehen(false));
+            }
+            s.setHandkarten(hk);
+        }
     }
 
     public void spielabschluss(Spieler s){
