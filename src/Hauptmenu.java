@@ -41,14 +41,14 @@ public class Hauptmenu extends JFrame {
 
     //1,2 = Position im Fenster 2,3 = Größe des Textfeldes
     text = new JLabel("UNO");
-    text.setBounds(calcBoundsX(500), 10, 500, 100);
+    text.setBounds(calcBoundsX(220), 10, 500, 100);
     Font schrift = new Font("Serif", Font.BOLD + Font.ITALIC, 100); //Schriftart + Kursiv etc. + Größe
     text.setFont(schrift);
     add(text);
 
     //Schriftzug Spieler wählen
     text2 = new JLabel("Spieler wählen");
-    text2.setBounds(calcBoundsX(500), 150, 500, 70);
+    text2.setBounds(calcBoundsX(320), 150, 500, 70);
     Font schrift2 = new Font("Serif", Font.BOLD + Font.ITALIC, 50);
     text2.setFont(schrift2);
     add(text2);
@@ -184,7 +184,6 @@ public class Hauptmenu extends JFrame {
         eingabes4.setVisible(false);
         enables3.setVisible(false);
         enables4.setVisible(false);
-        text.setVisible(false);
 
         Liste spieler = new Liste(new Abschluss());
         System.out.println(eingabes1.getText() + " hinzugefügt");
